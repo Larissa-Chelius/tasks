@@ -16,7 +16,7 @@ function App(): JSX.Element {
                 automatically reload. Hello World
             </p>
             <ul>
-                <li>Music</li>
+                <li>Rock music</li>
                 <li>My dog Stella</li>
                 <li>The mountains</li>
             </ul>
