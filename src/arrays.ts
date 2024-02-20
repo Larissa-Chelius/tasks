@@ -105,17 +105,19 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    let sum = 0;
-    let foundNegative = false;
-    return values
-        .map((num) => {
-            if (num < 0 && !foundNegative) {
-                foundNegative = true;
-                return sum + num;
-            } else {
-                sum += num;
-                return num;
-            }
-        })
-        .concat(foundNegative ? [] : [sum]);
+    const firstNegativeIndex = values.findIndex((num) => num < 0);
+
+    if (firstNegativeIndex !== -1) {
+        const sumOfPrevious = values
+            .slice(0, firstNegativeIndex)
+            .reduce((acc, num) => acc + num, 0);
+        return [
+            ...values.slice(0, firstNegativeIndex + 1),
+            sumOfPrevious,
+            ...values.slice(firstNegativeIndex + 1)
+        ];
+    } else {
+        const sumOfAll = values.reduce((acc, num) => acc + num, 0);
+        return [...values, sumOfAll];
+    }
 }
