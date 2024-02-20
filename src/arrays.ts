@@ -118,8 +118,7 @@ export function injectPositive(values: number[]): number[] {
                 negativeEncountered = true;
                 return [num, sum];
             }
-
-            return num;
+            return sum;
         })
         .flat();
 }
