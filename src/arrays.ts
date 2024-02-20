@@ -108,17 +108,19 @@ export function injectPositive(values: number[]): number[] {
     let sum = 0;
     let negativeEncountered = false;
 
-    return values
-        .map((num) => {
-            if (negativeEncountered) {
-                return num;
-            }
+    return values.reduce((result, num) => {
+        if (negativeEncountered) {
+            result.push(num);
+        } else {
             sum += num;
             if (num < 0) {
                 negativeEncountered = true;
-                return [num, sum];
+                result.push(num, sum);
+            } else {
+                result.push(num);
             }
-            return sum;
-        })
-        .flat();
+        }
+
+        return result;
+    }, [] as number[]);
 }
