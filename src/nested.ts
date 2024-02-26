@@ -185,7 +185,25 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    const updatedQuestions: Question[] = [];
+
+    for (const question of questions) {
+        if (question.id === targetId) {
+            const updatedQuestion: Question = {
+                ...question,
+                type: newQuestionType,
+                options:
+                    newQuestionType !== "multiple_choice_question"
+                        ? []
+                        : question.options
+            };
+            updatedQuestions.push(updatedQuestion);
+        } else {
+            updatedQuestions.push(question);
+        }
+    }
+
+    return updatedQuestions;
 }
 
 /**
